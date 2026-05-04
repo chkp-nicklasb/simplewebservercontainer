@@ -1,0 +1,4 @@
+# Keep the build context minimal — only the nginx config is needed.
+# Content files are volume-mounted at runtime, not copied into the image.
+**
+!nginx.conf

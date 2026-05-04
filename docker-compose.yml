@@ -1,0 +1,19 @@
+services:
+  webserver:
+    build: .
+    image: smart-console-extensions-nginx
+    ports:
+      - "4434:443"
+    volumes:
+      # Mount the project directory as read-only into the nginx document root.
+      # The Dockerfile, docker-compose.yml, and nginx.conf are also present but
+      # nginx will serve them only if directly requested. See nginx.conf for
+      # access controls.
+      - .:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      # nginx needs to write temporary files and PID file even in read-only mode
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
